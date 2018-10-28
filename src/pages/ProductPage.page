@@ -1,0 +1,65 @@
+<apex:page controller="ProductTableController">
+    <style type="text/css">
+        .apexColumn { padding: 10px; border-top: solid 1px rgb(200,200,200); }
+        .colHead { line-height: 1.8rem; color: rgb(120,120,120); }
+        tr:first-child th { border-bottom: solid 1px rgb(200,200,200) }
+        a { color: blue; text-decoration: none; }
+        a:hover { text-decoration: none; }
+    </style>
+    
+    
+    <apex:dataTable value="{!productsList}" var="product" id="theTable" style="padding: 10px">
+        
+        <apex:facet name="header"><span style="line-height: 2.5rem">Product List</span></apex:facet>
+        
+        <apex:column style="width: 10%" styleClass="apexColumn">
+            <apex:facet name="header"><span class="colHead">IMAGE</span></apex:facet>
+            <apex:image alt="{!product.Name}" title="{!product.Name}" url="{!product.Image_URL__c}"/>
+        </apex:column>
+        
+        <apex:column style="width: 12%" styleClass="apexColumn">
+            <apex:form >
+                <apex:facet name="header"></apex:facet>
+                <apex:commandLink action="{!goToDetail}" value="{!product.Name}" target="_blank" title="Open Detail Product Page" >
+                    <apex:param name="id" assignTo="{!id}" value="{!product.Id}"/>
+                </apex:commandLink>
+                <!--<apex:outputLink value="apex/DetailProductPage" target="_blank" title="Open Detail Product Page">{!product.Name}</apex:outputLink>-->
+            </apex:form>
+        </apex:column>
+        
+        <apex:column style="width: auto" styleClass="apexColumn">
+            <apex:facet name="header"><span class="colHead">TITLE</span></apex:facet>
+            <apex:outputText value="{!product.Product_Title__c}"/>
+        </apex:column>
+        
+        <apex:column style="width: 30%" styleClass="apexColumn">
+            <apex:facet name="header"><span class="colHead">DESCRIPTION</span></apex:facet>
+            <apex:form >
+                <apex:outputPanel id="TestOutput">
+                    {!product.Product_Description__c}
+                </apex:outputPanel>
+                <apex:commandLink action="{!goToDetail}" value="more..." target="_blank" title="Open Detail Product Page" >
+                    <apex:param name="id" assignTo="{!id}" value="{!product.Id}"/>
+                </apex:commandLink>
+            </apex:form>
+        </apex:column>
+        
+        <apex:column styleClass="apexColumn">
+            <apex:facet name="header"><span class="colHead">COST</span></apex:facet>
+            <apex:outputText value="{!product.Unit__c}$"/>
+        </apex:column>
+        
+        <apex:column styleClass="apexColumn">
+            <apex:form >
+                <!--                <apex:commandButton action="{!goToBuy}" style="background: rgb(0,75,255); color: white" title="BUY {!product.Name}" value="BUY" >
+<apex:param name="id" assignTo="{!id}" value="{!product.Id}"/>
+</apex:commandButton>    -->
+                <apex:commandLink action="{!goToBuy}" value="BUY" style="padding: 0.5rem; border-radius: 3px; background: rgb(0,75,255); color: white" >
+                    <apex:param name="id" assignTo="{!id}" value="{!product.Id}" />
+                </apex:commandLink>
+            </apex:form>
+        </apex:column>
+        
+    </apex:dataTable>
+    
+</apex:page>

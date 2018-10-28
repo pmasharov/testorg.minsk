@@ -1,0 +1,60 @@
+<apex:page controller="ProductTableController">
+    <style type="text/css">
+        header { background: rgb(220, 240, 250); border: solid 2px rgb(150,150,150); border-width: 2px 0; }
+        .col-head { text-align: center; line-height: 3rem; font-size: 1rem; }
+        .slds-col.col-mid span, input, label { line-height: 1.8rem; }
+        .slds-col.col-mid { padding: 50px 20px 50px; }
+        .slds-col.col-mid.col-mid-right { text-align: left; }
+        .slds-col.col-mid.col-mid-left { text-align: center; }
+        footer { background: rgb(220, 240, 250); border: solid 2px rgb(150,150,150); border-width: 2px 0; text-align: center; }
+        footer .buttonWrapper input { margin: 0.5rem 0.2rem; }
+        .slds-col.col-mid span.lable { font-weight: bold; color: rgb(120,120,120) }
+    </style>
+    <apex:slds />
+    <head>
+        
+    </head>
+    <body>
+        <header>
+            <div class="slds-grid">
+                <div class="slds-col col-head">
+                    {!selectedProduct.Name}
+                </div>
+            </div>
+            
+        </header>
+        
+        <apex:form >
+            <div class="slds-grid">
+                <div class="slds-col col-mid col-mid-left slds-size_1-of-2">
+                    <span>
+                        <apex:image alt="{!selectedProduct.Name}" title="{!selectedProduct.Name}" url="{!selectedProduct.Image_URL__c}"/>
+                    </span>
+                </div>
+                <div class="slds-col col-mid col-mid-right slds-size_1-of-2">
+                    <span class="lable">AMOUNT:</span><br />
+                    <span>{!selectedProduct.Units_Available__c}</span><br />
+                    <span class="lable">TITLE:</span><br />
+                    <span>{!selectedProduct.Product_Title__c}</span><br />
+                    <span class="lable">DESCRIPTION:</span><br />
+                    <span>{!selectedProduct.Product_Description__c}</span><br />
+                </div> 
+            </div>          
+        </apex:form>
+        
+        <footer>
+            <div class="buttonWrapper">
+                <apex:form >
+                    <apex:commandButton action="{!goToShopping}" value="To Shoping" />
+                <apex:commandLink action="{!goToBuy}" value="BUY" style="padding: 0.2rem; border-radius: 3px; background: rgb(0,75,255); color: white" >
+                    <apex:param name="id" assignTo="{!id}" value="{!selectedProduct.Id}" />
+                </apex:commandLink>
+                </apex:form>
+            </div>
+        </footer>
+        
+        <script>
+        
+        </script>
+    </body>
+</apex:page>

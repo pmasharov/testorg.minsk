@@ -1,0 +1,70 @@
+<apex:page controller="ProductTableController">
+    <style type="text/css">
+        header { background: rgb(220, 240, 250); border: solid 2px rgb(150,150,150); border-width: 2px 0; }
+        .col-head { text-align: center; line-height: 3rem; font-size: 1rem; }
+        .slds-col.col-mid span, input, label { line-height: 1.8rem; }
+        .slds-col.col-mid { margin: 50px 0; }
+        .slds-col.col-mid.col-mid-right { text-align: left; }
+        .slds-col.col-mid.col-mid-left { text-align: right; }
+        footer { background: rgb(220, 240, 250); border: solid 2px rgb(150,150,150); border-width: 2px 0; text-align: center; }
+        footer .buttonWrapper input { margin: 0.5rem 0.2rem; }
+    </style>
+    <apex:slds />
+    <head>
+        
+    </head>
+    <body>
+        <header>
+            <div class="slds-grid">
+                <div class="slds-col col-head slds-size_1-of-2">
+                    Contact Information
+                </div>
+                <div class="slds-col col-head slds-size_1-of-2">
+                    Product Information
+                </div>    
+            </div>
+            
+        </header>
+        <apex:pageMessages />
+        <apex:form >
+            <div class="slds-grid">
+                <div class="slds-col col-mid col-mid-left slds-size_1-of-4">
+                    <span>Email </span><br />
+                    <span>First Name </span><br />
+                    <span>Last Name </span><br />
+                </div>
+                <div class="slds-col col-mid col-mid-right slds-size_1-of-4">
+                    <apex:inputText value="{!mail}" style="margin: 5px" id="inputEmail" /><br />
+                    <apex:inputText value="{!fName}" style="margin: 5px" id="inputFirstName"/><br />
+                    <apex:inputText value="{!lName}" style="margin: 5px" id="inputLastName"/><br />
+                </div>
+                <div class="slds-col col-mid col-mid-left slds-size_1-of-4">
+                    <span>Product Name  </span><br />
+                    <span>Cost </span><br />
+                    <span>Unit Count </span><br />
+                    <span>Total Amount </span><br />
+                </div>
+                <div class="slds-col col-mid col-mid-right slds-size_1-of-4">
+                    <span style="margin: 5px;">{!selectedProduct.Name}</span><br />
+                    <!--<span style="margin: 5px;">{!selectedProduct.Name}</span><br />-->
+                    <span style="margin: 5px;">{!selectedProduct.Unit__c} $</span><br />
+                    <apex:inputText style="margin: 5px" id="inputUnitCount" value="{!unitCount}">
+                    	<apex:actionSupport event="onchange" action="{!totalAmountCalc}" reRender="thePanelWrapper"/>
+                    </apex:inputText><br />
+                    <apex:outputPanel id="thePanelWrapper">
+                        <span style="margin: 5px;">{!totalAmount} $</span><br />
+                    </apex:outputPanel>
+                    
+                </div>    
+            </div>  
+            <footer>
+                <div class="buttonWrapper">
+                    <apex:commandButton action="{!goToShopping}" value="To Shoping" />
+                    <apex:commandButton action="{!buy}" style="background: rgb(0,75,255); color: white" value="BUY" />
+                </div>
+                
+            </footer>
+        </apex:form>
+        
+    </body>
+</apex:page>
